@@ -1,0 +1,30 @@
+app:
+  ios:
+    bundleId: com.example.caculatorApp
+  android:
+    applicationId: com.example.caculator_app
+flavors:
+  dev:
+    app:
+      name: "Calculator Dev"
+      icon: "assets/icons/app_icon_dev.png"
+    android:
+      applicationId: com.example.caculator_app.dev
+    ios:
+      bundleId: com.example.caculatorApp.dev
+  prod:
+    app:
+      name: "Calculator"
+      icon: "assets/icons/app_icon_prod.png"
+    android:
+      applicationId: com.example.caculator_app.prod
+    ios:
+      bundleId: com.example.caculatorApp.prod
+  staging:
+    app:
+      name: "Calculator Staging"
+      icon: "assets/icons/app_icon_staging.png"
+    android:
+      applicationId: com.example.caculator_app.staging
+    ios:
+      bundleId: com.example.caculatorApp.staging

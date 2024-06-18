@@ -1,0 +1,6 @@
+{
+    "name": "dev",
+    "apiUrl": "https://dev.example.com/api",
+    "featureFlag": true
+  }
+  

@@ -1,0 +1,5 @@
+{
+  "name": "prod",
+  "apiUrl": "https://dev.example.com/api",
+  "featureFlag": false
+}

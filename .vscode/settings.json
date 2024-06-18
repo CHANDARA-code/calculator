@@ -7,7 +7,7 @@
     "**/.fvm": true
   },
   "editor.formatOnSave": true,
-  "dart.lineLength": 80,
+  "dart.lineLength": 120,
   "[dart]": {
     "editor.formatOnSave": true,
     "editor.formatOnType": true

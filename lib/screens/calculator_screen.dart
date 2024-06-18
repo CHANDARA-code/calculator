@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:caculator_app/calculator_notifier.dart';
+import 'package:caculator_app/notifier/calculator/calculator_notifier.dart';
+import 'package:caculator_app/screens/history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
@@ -17,6 +18,19 @@ class CalculatorScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text('Calculator'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.history),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => HistoryScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -44,10 +58,8 @@ class CalculatorScreen extends ConsumerWidget {
 
   Widget buildAdvancedLayout(BuildContext context, double padding) {
     const buttonTitles = [
-      "",
       "Rad",
       "√",
-      "()",
       "sin",
       "cos",
       "tan",
@@ -96,7 +108,8 @@ class CalculatorScreen extends ConsumerWidget {
       '+/-',
       '0',
       '.',
-      '='
+      '=',
+      'DEL'
     ];
 
     return ResponsiveGridList(
@@ -133,7 +146,8 @@ class CalculatorScreen extends ConsumerWidget {
       '+/-',
       '0',
       '.',
-      '='
+      '=',
+      'DEL'
     ];
 
     return ResponsiveGridList(
@@ -156,15 +170,22 @@ class DisplayArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final expression = ref.watch(calculatorProvider);
+    final state = ref.watch(calculatorProvider);
+    final expression = state.expression;
+    final error = state.error;
+
     return Expanded(
       flex: 1,
       child: Container(
         padding: EdgeInsets.all(20),
         alignment: Alignment.bottomRight,
         child: AutoSizeText(
-          expression.isEmpty ? '0' : expression,
-          style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white),
+          error ?? (expression.isEmpty ? '0' : expression),
+          style: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: error != null ? Colors.red : Colors.white,
+          ),
           maxLines: 1,
           maxFontSize: 36,
           minFontSize: 20,
@@ -188,6 +209,9 @@ class CalculatorButton extends ConsumerWidget {
         switch (title) {
           case 'C':
             calculator.clear();
+            break;
+          case 'DEL':
+            calculator.delete();
             break;
           case '+':
           case '-':

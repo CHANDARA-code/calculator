@@ -1,4 +1,4 @@
-import 'package:caculator_app/calculator_screen.dart';
+import 'package:caculator_app/screens/calculator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

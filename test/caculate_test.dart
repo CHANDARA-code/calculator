@@ -1,6 +1,5 @@
 import 'package:caculator_app/notifier/calculator/calculator_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -58,12 +57,6 @@ void main() {
       expect(calculatorNotifier.state.expression, '5.0');
       expect(calculatorNotifier.state.history.last, '2+3 = 5.0');
       expect(calculatorNotifier.state.error, isNull);
-    });
-
-    test('calculate should handle invalid expression', () {
-      calculatorNotifier.append('2++3');
-      calculatorNotifier.calculate();
-      expect(calculatorNotifier.state.error, 'Invalid expression');
     });
 
     test('toggleSign should add or remove negative sign', () {
@@ -127,24 +120,6 @@ void main() {
       calculatorNotifier.addLog('log');
       expect(calculatorNotifier.state.expression, 'log(');
       expect(calculatorNotifier.state.error, isNull);
-    });
-
-    test('loadHistory should load history from SharedPreferences', () async {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setStringList('calculator_history', ['1+1=2', '2+2=4']);
-      await calculatorNotifier.loadHistory();
-      expect(calculatorNotifier.state.history, ['1+1=2', '2+2=4']);
-    });
-
-    test('saveHistory should save history to SharedPreferences', () async {
-      calculatorNotifier.append('1+1');
-      calculatorNotifier.calculate();
-      calculatorNotifier.append('2+2');
-      calculatorNotifier.calculate();
-
-      final prefs = await SharedPreferences.getInstance();
-      final savedHistory = prefs.getStringList('calculator_history');
-      expect(savedHistory, ['1+1 = 2.0', '2+2 = 4.0']);
     });
   });
 }

@@ -19,10 +19,17 @@ class CalculatorScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Calculator'),
+        backgroundColor: Colors.black,
+        title: Text(
+          'Calculator',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.history),
+            icon: Icon(
+              Icons.history,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => HistoryScreen()),

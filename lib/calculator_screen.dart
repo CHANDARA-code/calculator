@@ -24,7 +24,16 @@ class CalculatorScreen extends ConsumerWidget {
             Expanded(
               flex: 2,
               child: isLandscape
-                  ? buildLandscapeLayout(context, buttonPadding)
+                  ? Row(
+                      children: [
+                        Expanded(
+                          child: buildAdvancedLayout(context, buttonPadding),
+                        ),
+                        Expanded(
+                          child: buildBasicLayout(context, buttonPadding),
+                        ),
+                      ],
+                    )
                   : buildPortraitLayout(context, buttonPadding),
             ),
           ],
@@ -33,44 +42,61 @@ class CalculatorScreen extends ConsumerWidget {
     );
   }
 
-  Widget buildLandscapeLayout(BuildContext context, double padding) {
+  Widget buildAdvancedLayout(BuildContext context, double padding) {
     const buttonTitles = [
       "",
       "Rad",
       "√",
-      "C",
       "()",
-      "%",
-      "÷",
       "sin",
       "cos",
       "tan",
-      "7",
-      "8",
-      "9",
-      "×",
       "ln",
       "log",
       "1/x",
-      "4",
-      "5",
-      "6",
-      "-",
       "e^x",
       "x^2",
       "x^y",
-      "1",
-      "2",
-      "3",
-      "+",
       "|x|",
       "π",
       "e",
-      "+/-",
-      "0",
-      ".",
-      "=",
-      "",
+    ];
+
+    return ResponsiveGridList(
+      desiredItemWidth: 80, // Adjusted item width
+      minSpacing: 5, // Adjusted minimum spacing
+      children: buttonTitles.map((title) {
+        return Padding(
+          padding: EdgeInsets.all(padding),
+          child: CalculatorButton(title: title),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget buildBasicLayout(BuildContext context, double padding) {
+    const buttonTitles = [
+      'C',
+      '(',
+      ')',
+      '%',
+      '÷',
+      '7',
+      '8',
+      '9',
+      '×',
+      '4',
+      '5',
+      '6',
+      '-',
+      '1',
+      '2',
+      '3',
+      '+',
+      '+/-',
+      '0',
+      '.',
+      '='
     ];
 
     return ResponsiveGridList(
@@ -207,14 +233,4 @@ class CalculatorButton extends ConsumerWidget {
       child: Text(title),
     );
   }
-}
-
-void main() {
-  runApp(
-    ProviderScope(
-      child: MaterialApp(
-        home: CalculatorScreen(),
-      ),
-    ),
-  );
 }

@@ -40,6 +40,8 @@ dependencies:
   math_expressions: ^2.5.0
   auto_size_text: ^3.0.0
   responsive_grid: ^2.4.4
+  flutter_secure_storage: ^9.2.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
